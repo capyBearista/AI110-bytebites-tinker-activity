@@ -19,3 +19,42 @@ This module summarizes the four main domain classes used by the project.
   methods include adding/removing items, calculating the total, and
   finalizing the transaction.
 """
+from datetime import datetime
+from typing import List, Optional
+
+class Item:
+    """Represents a menu item with pricing, category, and popularity."""
+    
+    def __init__(self, id: int, name: str, price: float, category: str, popularity_rating: float):
+        self.id: int = id
+        self.name: str = name
+        self.price: float = price
+        self.category: str = category
+        self.popularity_rating: float = popularity_rating
+
+class Customer:
+    """Represents a customer with loyalty points and purchase history."""
+    
+    def __init__(self, id: int, name: str, email: str):
+        self.id: int = id
+        self.name: str = name
+        self.email: str = email
+        self.loyalty_points: int = 0
+        self.purchase_history: List["Transaction"] = []
+
+class MenuCatalog:
+    """A container for Item objects managing the menu catalog."""
+    
+    def __init__(self):
+        self.items: List[Item] = []
+
+class Transaction:
+    """Represents an order placed by a customer."""
+    
+    def __init__(self, id: int, customer: Customer):
+        self.id: int = id
+        self.customer: Customer = customer
+        self.selected_items: List[Item] = []
+        self.date: datetime = datetime.now()
+        self.total: float = 0.0
+        self.status: str = "pending"
